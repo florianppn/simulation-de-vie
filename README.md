@@ -26,6 +26,7 @@ simulation-de-vie/
 │   └── options_controller.py # Contrôle des options
 └── assets/              # Ressources graphiques
     ├── animaux/         # Sprites des entités (animaux, ressources, stats)
+    ├── Animaux/         # Sprites additionnels (Ane, Cerf, etc.)
     ├── menu/            # Images du menu (fond, boutons)
     ├── font/            # Polices de caractères
     └── map/             # Carte Tiled (.tmx, .tsx)
