@@ -12,34 +12,8 @@ simulation-de-vie/
 ├── src/                 # Code de l'application
 │   ├── main.py          # Point d'entrée
 │   ├── model/           # Modèle - Données et logique métier
-│   │   ├── config.py    # Configuration (animaux, props, constantes)
-│   │   ├── elements/    # Entités du jeu (une classe = un fichier)
-│   │   │   ├── element.py   # Classe de base Element
-│   │   │   ├── animal.py    # Animal
-│   │   │   ├── resource.py  # Resource
-│   │   │   ├── ground.py    # Ground
-│   │   │   ├── herb.py      # Herb
-│   │   │   ├── water.py     # Water
-│   │   │   ├── mort.py      # Mort
-│   │   │   ├── damage.py    # Damage
-│   │   │   ├── specs.py    # ANIMAL_SPECS (données)
-│   │   │   └── entity_factory.py  # Abstract Factory
-│   │   ├── grid.py      # Grille 2D
-│   │   ├── planet.py    # PlanetAlpha (monde)
-│   │   └── game_model.py # Logique du jeu
 │   ├── templates/       # Vues et états d'affichage
-│   │   ├── view/        # Vue - Affichage
-│   │   │   ├── animation.py
-│   │   │   ├── entity_sprite.py
-│   │   │   ├── game_view.py
-│   │   │   ├── menu_view.py
-│   │   │   └── options_view.py
-│   │   └── view_state/  # DTO (GameViewState, OptionsViewState)
 │   └── controller/      # Contrôleur - Gestion des entrées
-│       ├── main_controller.py
-│       ├── game_controller.py
-│       ├── menu_controller.py
-│       └── options_controller.py
 ├── test/                # Tests unitaires et d'intégration
 │   ├── conftest.py      # Config pytest (path src/)
 │   ├── unit/            # Tests unitaires (Element, Grid, factory, Animal)
