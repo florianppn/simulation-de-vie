@@ -1,6 +1,6 @@
 # PlanetGame
 
-[![Tests](https://github.com/florianppn/simulation-de-vie/actions/workflows/tests.yml/badge.svg)](https://github.com/florianppn/simulation-de-vie/actions/workflows/tests.yml)
+[![Tests](https://github.com/florianppn/simulation-de-vie/workflows/Tests/badge.svg)](https://github.com/florianppn/simulation-de-vie/actions/workflows/tests.yml)
 
 Simulation de vie en Python avec Pygame. Architecture **MVC** (Model-View-Controller).
 
