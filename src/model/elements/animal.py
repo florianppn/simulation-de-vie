@@ -11,9 +11,19 @@ class Animal(Element):
     """Entité vivante avec vie, faim, soif, reproduction et prédation."""
 
     __slots__ = (
-        "_time_life", "_gender", "_bar_life", "_current_direction",
-        "_bar_drink", "_bar_food", "_speed", "_move_size", "_damage",
-        "_weight", "_prey", "_parents", "_virus"
+        "_time_life",
+        "_gender",
+        "_bar_life",
+        "_current_direction",
+        "_bar_drink",
+        "_bar_food",
+        "_speed",
+        "_move_size",
+        "_damage",
+        "_weight",
+        "_prey",
+        "_parents",
+        "_virus",
     )
 
     def __init__(self, name: str, char_repr: str, life_max: int):

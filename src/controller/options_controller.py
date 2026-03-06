@@ -36,27 +36,105 @@ class OptionsController:
     def _handle_click(self, pos):
         """Traite les clics sur les boutons."""
         for i in range(len(config.MOVABLE_ELEMENT)):
-            if config.MOVABLE_ELEMENT[i] != "Humain" and self.view.liste_button_animal[i-1].x_button <= pos[0] <= self.view.liste_button_animal[i-1].x_button + self.view.liste_button_animal[i-1].largeur_bouton and self.view.liste_button_animal[i-1].y_button <= pos[1] <= self.view.liste_button_animal[i-1].y_button + self.view.liste_button_animal[i-1].hauteur_bouton:
+            if (
+                config.MOVABLE_ELEMENT[i] != "Humain"
+                and self.view.liste_button_animal[i - 1].x_button
+                <= pos[0]
+                <= self.view.liste_button_animal[i - 1].x_button + self.view.liste_button_animal[i - 1].largeur_bouton
+                and self.view.liste_button_animal[i - 1].y_button
+                <= pos[1]
+                <= self.view.liste_button_animal[i - 1].y_button + self.view.liste_button_animal[i - 1].hauteur_bouton
+            ):
                 self.selected_entity = i
 
         for i in range(len(config.ENTITY_PARAM)):
-            if self.view.liste_button_param_1[i].x_button <= pos[0] <= self.view.liste_button_param_1[i].x_button + self.view.liste_button_param_1[i].largeur_bouton and self.view.liste_button_param_1[i].y_button <= pos[1] <= self.view.liste_button_param_1[i].y_button + self.view.liste_button_param_1[i].hauteur_bouton:
-                config.animals[config.MOVABLE_ELEMENT[self.selected_entity]][self.view.liste_button_param_1[i].name] += 1
-            if self.view.liste_button_param_10[i].x_button <= pos[0] <= self.view.liste_button_param_10[i].x_button + self.view.liste_button_param_10[i].largeur_bouton and self.view.liste_button_param_10[i].y_button <= pos[1] <= self.view.liste_button_param_10[i].y_button + self.view.liste_button_param_10[i].hauteur_bouton:
-                config.animals[config.MOVABLE_ELEMENT[self.selected_entity]][self.view.liste_button_param_10[i].name] += 10
-            if self.view.liste_button_param_n10[i].x_button <= pos[0] <= self.view.liste_button_param_n10[i].x_button + self.view.liste_button_param_n10[i].largeur_bouton and self.view.liste_button_param_n10[i].y_button <= pos[1] <= self.view.liste_button_param_n10[i].y_button + self.view.liste_button_param_n10[i].hauteur_bouton:
-                config.animals[config.MOVABLE_ELEMENT[self.selected_entity]][self.view.liste_button_param_n10[i].name] -= 10
-            if self.view.liste_button_param_0[i].x_button <= pos[0] <= self.view.liste_button_param_0[i].x_button + self.view.liste_button_param_0[i].largeur_bouton and self.view.liste_button_param_0[i].y_button <= pos[1] <= self.view.liste_button_param_0[i].y_button + self.view.liste_button_param_0[i].hauteur_bouton:
+            if (
+                self.view.liste_button_param_1[i].x_button
+                <= pos[0]
+                <= self.view.liste_button_param_1[i].x_button + self.view.liste_button_param_1[i].largeur_bouton
+                and self.view.liste_button_param_1[i].y_button
+                <= pos[1]
+                <= self.view.liste_button_param_1[i].y_button + self.view.liste_button_param_1[i].hauteur_bouton
+            ):
+                config.animals[config.MOVABLE_ELEMENT[self.selected_entity]][
+                    self.view.liste_button_param_1[i].name
+                ] += 1
+            if (
+                self.view.liste_button_param_10[i].x_button
+                <= pos[0]
+                <= self.view.liste_button_param_10[i].x_button + self.view.liste_button_param_10[i].largeur_bouton
+                and self.view.liste_button_param_10[i].y_button
+                <= pos[1]
+                <= self.view.liste_button_param_10[i].y_button + self.view.liste_button_param_10[i].hauteur_bouton
+            ):
+                config.animals[config.MOVABLE_ELEMENT[self.selected_entity]][
+                    self.view.liste_button_param_10[i].name
+                ] += 10
+            if (
+                self.view.liste_button_param_n10[i].x_button
+                <= pos[0]
+                <= self.view.liste_button_param_n10[i].x_button + self.view.liste_button_param_n10[i].largeur_bouton
+                and self.view.liste_button_param_n10[i].y_button
+                <= pos[1]
+                <= self.view.liste_button_param_n10[i].y_button + self.view.liste_button_param_n10[i].hauteur_bouton
+            ):
+                config.animals[config.MOVABLE_ELEMENT[self.selected_entity]][
+                    self.view.liste_button_param_n10[i].name
+                ] -= 10
+            if (
+                self.view.liste_button_param_0[i].x_button
+                <= pos[0]
+                <= self.view.liste_button_param_0[i].x_button + self.view.liste_button_param_0[i].largeur_bouton
+                and self.view.liste_button_param_0[i].y_button
+                <= pos[1]
+                <= self.view.liste_button_param_0[i].y_button + self.view.liste_button_param_0[i].hauteur_bouton
+            ):
                 config.animals[config.MOVABLE_ELEMENT[self.selected_entity]][self.view.liste_button_param_0[i].name] = 0
 
         for i in range(len(config.HUMAN_PARAM)):
-            if self.view.liste_button_param_humain_1[i].x_button <= pos[0] <= self.view.liste_button_param_humain_1[i].x_button + self.view.liste_button_param_humain_1[i].largeur_bouton and self.view.liste_button_param_humain_1[i].y_button <= pos[1] <= self.view.liste_button_param_humain_1[i].y_button + self.view.liste_button_param_humain_1[i].hauteur_bouton:
+            if (
+                self.view.liste_button_param_humain_1[i].x_button
+                <= pos[0]
+                <= self.view.liste_button_param_humain_1[i].x_button
+                + self.view.liste_button_param_humain_1[i].largeur_bouton
+                and self.view.liste_button_param_humain_1[i].y_button
+                <= pos[1]
+                <= self.view.liste_button_param_humain_1[i].y_button
+                + self.view.liste_button_param_humain_1[i].hauteur_bouton
+            ):
                 config.animals["Humain"][self.view.liste_button_param_humain_1[i].name] += 1
-            if self.view.liste_button_param_humain_10[i].x_button <= pos[0] <= self.view.liste_button_param_humain_10[i].x_button + self.view.liste_button_param_humain_10[i].largeur_bouton and self.view.liste_button_param_humain_10[i].y_button <= pos[1] <= self.view.liste_button_param_humain_10[i].y_button + self.view.liste_button_param_humain_10[i].hauteur_bouton:
+            if (
+                self.view.liste_button_param_humain_10[i].x_button
+                <= pos[0]
+                <= self.view.liste_button_param_humain_10[i].x_button
+                + self.view.liste_button_param_humain_10[i].largeur_bouton
+                and self.view.liste_button_param_humain_10[i].y_button
+                <= pos[1]
+                <= self.view.liste_button_param_humain_10[i].y_button
+                + self.view.liste_button_param_humain_10[i].hauteur_bouton
+            ):
                 config.animals["Humain"][self.view.liste_button_param_humain_10[i].name] += 10
-            if self.view.liste_button_param_humain_n10[i].x_button <= pos[0] <= self.view.liste_button_param_humain_n10[i].x_button + self.view.liste_button_param_humain_n10[i].largeur_bouton and self.view.liste_button_param_humain_n10[i].y_button <= pos[1] <= self.view.liste_button_param_humain_n10[i].y_button + self.view.liste_button_param_humain_n10[i].hauteur_bouton:
+            if (
+                self.view.liste_button_param_humain_n10[i].x_button
+                <= pos[0]
+                <= self.view.liste_button_param_humain_n10[i].x_button
+                + self.view.liste_button_param_humain_n10[i].largeur_bouton
+                and self.view.liste_button_param_humain_n10[i].y_button
+                <= pos[1]
+                <= self.view.liste_button_param_humain_n10[i].y_button
+                + self.view.liste_button_param_humain_n10[i].hauteur_bouton
+            ):
                 config.animals["Humain"][self.view.liste_button_param_humain_n10[i].name] -= 10
-            if self.view.liste_button_param_humain_0[i].x_button <= pos[0] <= self.view.liste_button_param_humain_0[i].x_button + self.view.liste_button_param_humain_0[i].largeur_bouton and self.view.liste_button_param_humain_0[i].y_button <= pos[1] <= self.view.liste_button_param_humain_0[i].y_button + self.view.liste_button_param_humain_0[i].hauteur_bouton:
+            if (
+                self.view.liste_button_param_humain_0[i].x_button
+                <= pos[0]
+                <= self.view.liste_button_param_humain_0[i].x_button
+                + self.view.liste_button_param_humain_0[i].largeur_bouton
+                and self.view.liste_button_param_humain_0[i].y_button
+                <= pos[1]
+                <= self.view.liste_button_param_humain_0[i].y_button
+                + self.view.liste_button_param_humain_0[i].hauteur_bouton
+            ):
                 config.animals["Humain"][self.view.liste_button_param_humain_0[i].name] = 0
 
         if 674 <= pos[0] <= 724 and 115 <= pos[1] <= 165:

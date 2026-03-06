@@ -7,6 +7,37 @@ on:
     branches: [main, master]
 
 jobs:
+  # Vérifie la qualité du code : lint, formatage et sécurité des dépendances
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Python 3.12 + cache pip pour accélérer les runs
+      - name: Configurer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Installer Ruff
+        run: pip install ruff
+
+      # Détecte les erreurs de style, imports inutilisés, bugs potentiels
+      - name: Vérifier le code (Ruff)
+        run: ruff check src/ test/
+
+      # S'assure que le code respecte le formatage standard (PEP 8)
+      - name: Vérifier le formatage (Ruff)
+        run: ruff format --check src/ test/
+
+      # Vérifie les vulnérabilités connues dans les dépendances (pygame, pytmx, pyscroll)
+      - name: Audit de sécurité (pip-audit)
+        run: |
+          pip install pygame pytmx pyscroll pip-audit
+          pip-audit
+
+  # Exécute les tests unitaires et d'intégration sur Ubuntu, Windows et macOS
   test:
     runs-on: ${{ matrix.os }}
     strategy:
@@ -16,15 +47,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Python 3.12 + cache pip pour accélérer les runs
       - name: Configurer Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: "pip"
 
       - name: Installer les dépendances
         run: |
           python -m pip install --upgrade pip
           pip install pygame pytmx pyscroll pytest
 
+      # Tests unitaires (Element, Grid, factory, Animal) + intégration (Planet)
       - name: Lancer les tests
         run: pytest test/ -v

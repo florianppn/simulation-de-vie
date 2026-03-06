@@ -72,10 +72,18 @@ class OptionsView:
         self.liste_button_param_n10 = [Button(elt, (353, 149), (32, 31), 10, "param_n10") for elt in entity_params]
         self.liste_button_param_0 = [Button(elt, (388, 149), (32, 31), 10, "param_0") for elt in entity_params]
 
-        self.liste_button_param_humain_1 = [Button(elt, (596, 277), (32, 31), 10, "param__humain_1") for elt in human_params]
-        self.liste_button_param_humain_10 = [Button(elt, (632, 277), (32, 31), 10, "param__humain_10") for elt in human_params]
-        self.liste_button_param_humain_n10 = [Button(elt, (667, 277), (32, 31), 10, "param__humain_n10") for elt in human_params]
-        self.liste_button_param_humain_0 = [Button(elt, (702, 277), (32, 31), 10, "param__humain_0") for elt in human_params]
+        self.liste_button_param_humain_1 = [
+            Button(elt, (596, 277), (32, 31), 10, "param__humain_1") for elt in human_params
+        ]
+        self.liste_button_param_humain_10 = [
+            Button(elt, (632, 277), (32, 31), 10, "param__humain_10") for elt in human_params
+        ]
+        self.liste_button_param_humain_n10 = [
+            Button(elt, (667, 277), (32, 31), 10, "param__humain_n10") for elt in human_params
+        ]
+        self.liste_button_param_humain_0 = [
+            Button(elt, (702, 277), (32, 31), 10, "param__humain_0") for elt in human_params
+        ]
 
         self.BLANC = (255, 255, 255)
         self.GREEN = (40, 180, 99)
@@ -111,7 +119,9 @@ class OptionsView:
 
     def _humain_stat(self, screen, view_state):
         """Affiche les stats de l'humain."""
-        sprite_sheet = pygame.image.load(os.path.join(f"./assets/animaux/Humain/Humain ({view_state.human_cp+1}).png")).convert_alpha()
+        sprite_sheet = pygame.image.load(
+            os.path.join(f"./assets/animaux/Humain/Humain ({view_state.human_cp + 1}).png")
+        ).convert_alpha()
         image = pygame.Surface((self.sprite_size, self.sprite_size), pygame.SRCALPHA)
         image.blit(sprite_sheet, (0, 0), (0, 0, self.sprite_size, self.sprite_size))
         image = image.subsurface(image.get_bounding_rect())

@@ -96,3 +96,4 @@ pytest test/integration/ -v
 
 - **Jeu** : pygame, pytmx, pyscroll
 - **Tests** : pytest
+- **Lint** : ruff

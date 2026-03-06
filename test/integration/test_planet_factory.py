@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """Tests d'intégration PlanetAlpha + entity_factory."""
 
-import pytest
-
 from model.planet import PlanetAlpha
 from model.elements import entity_factory
 

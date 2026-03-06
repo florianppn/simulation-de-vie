@@ -22,10 +22,10 @@ class AnimateSprite(pygame.sprite.Sprite):
         self.animation_index = 0
         self.sprite_size = 48
         self.images = {
-            'down': self.get_images(0),
-            'left': self.get_images(self.sprite_size),
-            'right': self.get_images(self.sprite_size * 2),
-            'up': self.get_images(self.sprite_size * 3),
+            "down": self.get_images(0),
+            "left": self.get_images(self.sprite_size),
+            "right": self.get_images(self.sprite_size * 2),
+            "up": self.get_images(self.sprite_size * 3),
         }
         self.time = 0
         self.speed = 2
@@ -43,10 +43,14 @@ class AnimateSprite(pygame.sprite.Sprite):
                 text += str(elt)
             try:
                 sprite_name = f"{text}.png"
-                self.sprite_sheet = pygame.image.load(f"./assets/animaux/{name.get_name()}/{sprite_name}").convert_alpha()
+                self.sprite_sheet = pygame.image.load(
+                    f"./assets/animaux/{name.get_name()}/{sprite_name}"
+                ).convert_alpha()
             except FileNotFoundError:
                 sprite_name = "11111111.png"
-                self.sprite_sheet = pygame.image.load(f"./assets/animaux/{name.get_name()}/{sprite_name}").convert_alpha()
+                self.sprite_sheet = pygame.image.load(
+                    f"./assets/animaux/{name.get_name()}/{sprite_name}"
+                ).convert_alpha()
         else:
             sprite_name = choice(os.listdir(f"./assets/animaux/{name.get_name()}"))
             self.sprite_sheet = pygame.image.load(f"./assets/animaux/{name.get_name()}/{sprite_name}").convert_alpha()

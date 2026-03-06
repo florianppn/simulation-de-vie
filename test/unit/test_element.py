@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """Tests unitaires pour Element."""
 
-import pytest
-
 from model.elements.element import Element
 
 

@@ -6,7 +6,7 @@ La vue ne reçoit que des données (GameViewState), jamais le modèle.
 
 import pygame
 
-from templates.view_state import GameViewState, StatsPanelData
+from templates.view_state import GameViewState
 
 
 def _barre(width: int, current: float, maximum: float) -> int:
@@ -35,7 +35,9 @@ class GameView:
         self.sprite_sheet_stats = pygame.transform.scale(self.sprite_sheet_stats, (self.rect_width, self.rect_height))
 
         self.sprite_sheet_stats_G = pygame.image.load("assets/animaux/stats_icons/global.png").convert_alpha()
-        self.sprite_sheet_stats_G = pygame.transform.scale(self.sprite_sheet_stats_G, (self.rect_width_G, self.rect_height_G))
+        self.sprite_sheet_stats_G = pygame.transform.scale(
+            self.sprite_sheet_stats_G, (self.rect_width_G, self.rect_height_G)
+        )
 
     def render(self, screen, view_state: GameViewState):
         """Affiche le jeu à partir des données fournies par le contrôleur."""

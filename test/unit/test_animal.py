@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """Tests unitaires pour Animal."""
 
-import pytest
-
 from model.elements import entity_factory
 
 

@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """Tests d'intégration flux Model -> get_view_data -> ViewState."""
 
-import pytest
-
 from model.planet import PlanetAlpha
 from model.elements import entity_factory
 from model.config import PLANET_LONGITUDE_CELLS_COUNT, PLANET_LATITUDE_CELLS_COUNT

@@ -10,4 +10,4 @@ class Herb(Resource):
     __slots__ = ()
 
     def __init__(self):
-        super().__init__("Herb", "\U0001F33F")
+        super().__init__("Herb", "\U0001f33f")

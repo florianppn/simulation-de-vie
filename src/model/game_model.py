@@ -27,7 +27,7 @@ class GameModel(PlanetAlpha):
     def __init__(self, screen_size):
         PlanetAlpha.__init__(self)
 
-        tmx_data = pytmx.util_pygame.load_pygame('./assets/map/carte.tmx')
+        tmx_data = pytmx.util_pygame.load_pygame("./assets/map/carte.tmx")
         map_data = pyscroll.data.TiledMapData(tmx_data)
         map_layer = pyscroll.orthographic.BufferedRenderer(map_data, screen_size)
         map_layer.zoom = ZOOM
@@ -50,11 +50,15 @@ class GameModel(PlanetAlpha):
         """Ajoute toutes les entités au groupe de rendu."""
         for i in range(len(self.grid)):
             for j in range(len(self.grid[i])):
-                if self.grid[i][j].get_name() != 'Ground':
+                if self.grid[i][j].get_name() != "Ground":
                     entity = EntitySprite(
-                        self.grid[i][j], i, j,
-                        Grid.get_neighborhood(self, i, j, WIND_ROSE) if self.grid[i][j].get_name() == 'Water' else None,
-                        True, PLANET_PYGAME_SIZE_GRID, WORLD_SIZE
+                        self.grid[i][j],
+                        i,
+                        j,
+                        Grid.get_neighborhood(self, i, j, WIND_ROSE) if self.grid[i][j].get_name() == "Water" else None,
+                        True,
+                        PLANET_PYGAME_SIZE_GRID,
+                        WORLD_SIZE,
                     )
                     if self.grid[i][j].get_name() == "Humain":
                         self.player = entity
@@ -70,15 +74,21 @@ class GameModel(PlanetAlpha):
         collisions_list = []
         for cible in self.entity_group:
             if element.entity.get_id() != cible.entity.get_id():
-                if (cible.position[0] > element.position[0] - 48 and cible.position[0] < element.position[0] + 48):
-                    if (cible.position[1] > element.position[1] - 48 and cible.position[1] < element.position[1] + 48):
+                if cible.position[0] > element.position[0] - 48 and cible.position[0] < element.position[0] + 48:
+                    if cible.position[1] > element.position[1] - 48 and cible.position[1] < element.position[1] + 48:
                         collisions_list.append(cible)
         return collisions_list
 
     def is_render(self, cible):
         """Détermine si l'entité est dans la zone de rendu."""
-        if cible.position[0] > self.player.position[0] - self.render_distance and cible.position[0] < self.player.position[0] + self.render_distance:
-            if cible.position[1] > self.player.position[1] - self.render_distance and cible.position[1] < self.player.position[1] + self.render_distance:
+        if (
+            cible.position[0] > self.player.position[0] - self.render_distance
+            and cible.position[0] < self.player.position[0] + self.render_distance
+        ):
+            if (
+                cible.position[1] > self.player.position[1] - self.render_distance
+                and cible.position[1] < self.player.position[1] + self.render_distance
+            ):
                 return True
         return False
 
@@ -110,7 +120,15 @@ class GameModel(PlanetAlpha):
             self.stats_entity = None
         if elt.entity.get_name() not in ["Mort", "Damage"]:
             self.entity_group.remove(elt)
-            entity = EntitySprite(entity_factory.create_mort(), elt.position[0], elt.position[1], [], False, PLANET_PYGAME_SIZE_GRID, WORLD_SIZE)
+            entity = EntitySprite(
+                entity_factory.create_mort(),
+                elt.position[0],
+                elt.position[1],
+                [],
+                False,
+                PLANET_PYGAME_SIZE_GRID,
+                WORLD_SIZE,
+            )
             self.entity_group.add(entity, layer=2)
         else:
             self.entity_group.remove(elt)
@@ -119,21 +137,29 @@ class GameModel(PlanetAlpha):
         """Retourne True avec une probabilité de chance%."""
         if chance >= 100:
             return True
-        return choice([False if i != int(chance/2) or chance == 0 else True for i in range(100-chance)])
+        return choice([False if i != int(chance / 2) or chance == 0 else True for i in range(100 - chance)])
 
     def random_attack(self, elt, collision_list: list) -> None:
         """Gère les attaques aléatoires des animaux."""
-        list_neighbors = [animal for animal in collision_list if animal.name != 'Water']
-        if elt.name != 'Humain' and len(list_neighbors) > 0:
+        list_neighbors = [animal for animal in collision_list if animal.name != "Water"]
+        if elt.name != "Humain" and len(list_neighbors) > 0:
             alea = choice(list_neighbors)
             if elt.entity.is_prey(alea.name):
-                if alea.name != 'Herb':
+                if alea.name != "Herb":
                     alea.entity.losing_life(elt.entity.get_damage())
                     if alea.entity.is_dead():
                         elt.entity.incr_food(alea.entity.get_life_max())
                         self.kill(alea)
                     else:
-                        entity = EntitySprite(entity_factory.create_damage(), elt.position[0], elt.position[1], [], False, PLANET_PYGAME_SIZE_GRID, WORLD_SIZE)
+                        entity = EntitySprite(
+                            entity_factory.create_damage(),
+                            elt.position[0],
+                            elt.position[1],
+                            [],
+                            False,
+                            PLANET_PYGAME_SIZE_GRID,
+                            WORLD_SIZE,
+                        )
                         self.entity_group.add(entity, layer=3)
                 else:
                     alea.entity.decr_bar_value(1)
@@ -142,7 +168,7 @@ class GameModel(PlanetAlpha):
     def neighboring_water(self, elt, collision_list: list) -> None:
         """Régénère la soif si l'animal est à côté de l'eau."""
         for entite in collision_list:
-            if entite.name == 'Water':
+            if entite.name == "Water":
                 elt.entity.reset_drink()
                 break
 
@@ -153,7 +179,10 @@ class GameModel(PlanetAlpha):
         elt.entity.set_time_life()
         self.catch_virus(elt)
         self.lose_virus(elt)
-        if elt.entity.get_drink()[0] <= elt.entity.get_drink()[1] and elt.entity.get_food()[0] <= elt.entity.get_food()[1]:
+        if (
+            elt.entity.get_drink()[0] <= elt.entity.get_drink()[1]
+            and elt.entity.get_food()[0] <= elt.entity.get_food()[1]
+        ):
             self.neighboring_water(elt, collision_entity)
             self.random_attack(elt, collision_entity)
             self.dying_hunger_thirst(elt)
@@ -169,14 +198,19 @@ class GameModel(PlanetAlpha):
             for entite in collision_list:
                 if entite.name == elt.name and entite.entity.get_gender() != elt.entity.get_gender():
                     newAnimal = entity_factory.create_animal(elt.name)
-                    newAnimal.set_parents(entite if entite.entity.get_gender() == 0 else elt, entite if entite.entity.get_gender() == 1 else elt)
-                    entity = EntitySprite(newAnimal, elt.position[0], elt.position[1], [], False, PLANET_PYGAME_SIZE_GRID, WORLD_SIZE)
+                    newAnimal.set_parents(
+                        entite if entite.entity.get_gender() == 0 else elt,
+                        entite if entite.entity.get_gender() == 1 else elt,
+                    )
+                    entity = EntitySprite(
+                        newAnimal, elt.position[0], elt.position[1], [], False, PLANET_PYGAME_SIZE_GRID, WORLD_SIZE
+                    )
                     self.entity_group.add(entity, layer=3)
                     break
 
     def catch_virus(self, elt) -> None:
         """10% de chance d'attraper un virus."""
-        if self.percentage_chance(10) and elt.entity.get_virus() is False and elt.name != 'Humain':
+        if self.percentage_chance(10) and elt.entity.get_virus() is False and elt.name != "Humain":
             elt.entity.set_virus(True)
 
     def lose_virus(self, elt) -> None:
@@ -237,8 +271,8 @@ class GameModel(PlanetAlpha):
         for elt in self.entity_group:
             if self.is_render(elt):
                 calc = [pos[0] - 485 + self.player.position[0], pos[1] - 485 + self.player.position[1]]
-                if (elt.position[0] > calc[0] - 24 and elt.position[0] < calc[0] + 24):
-                    if (elt.position[1] > calc[1] - 24 and elt.position[1] < calc[1] + 24):
+                if elt.position[0] > calc[0] - 24 and elt.position[0] < calc[0] + 24:
+                    if elt.position[1] > calc[1] - 24 and elt.position[1] < calc[1] + 24:
                         return elt
         return None
 
@@ -269,7 +303,7 @@ class GameModel(PlanetAlpha):
 
                 else:
                     if self.clock % (self.fps * 5) == 0:
-                        if elt.entity.get_name() == 'Herb':
+                        if elt.entity.get_name() == "Herb":
                             elt.entity.reset_bar_value()
 
         if self.clock <= 0:

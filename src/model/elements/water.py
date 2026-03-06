@@ -10,4 +10,4 @@ class Water(Resource):
     __slots__ = ()
 
     def __init__(self):
-        super().__init__("Water", "\U0001F4A7")
+        super().__init__("Water", "\U0001f4a7")

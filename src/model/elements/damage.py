@@ -10,4 +10,4 @@ class Damage(Animal):
     __slots__ = ()
 
     def __init__(self):
-        super().__init__("Damage", "\U0001F4A2", 10)
+        super().__init__("Damage", "\U0001f4a2", 10)

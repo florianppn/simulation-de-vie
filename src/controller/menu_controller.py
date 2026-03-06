@@ -3,7 +3,7 @@
 
 import pygame
 
-from model.config import WINDOW_SIZES, animals, props
+from model.config import animals, props
 from model.elements import entity_factory
 from templates.view.menu_view import MenuView
 
@@ -14,6 +14,7 @@ class MenuController:
     def __init__(self, game_model):
         self.model = game_model
         from model.config import WINDOW_SIZES
+
         self.view = MenuView(WINDOW_SIZES["menu"])
 
     def handle_events(self):
@@ -32,16 +33,22 @@ class MenuController:
         return "menu"
 
     def _is_click_start(self, pos):
-        return (self.view.x_bouton_start <= pos[0] <= self.view.x_bouton_start + self.view.largeur_bouton and
-                self.view.y_bouton_start <= pos[1] <= self.view.y_bouton_start + self.view.hauteur_bouton)
+        return (
+            self.view.x_bouton_start <= pos[0] <= self.view.x_bouton_start + self.view.largeur_bouton
+            and self.view.y_bouton_start <= pos[1] <= self.view.y_bouton_start + self.view.hauteur_bouton
+        )
 
     def _is_click_option(self, pos):
-        return (self.view.x_bouton_option <= pos[0] <= self.view.x_bouton_option + self.view.largeur_bouton and
-                self.view.y_bouton_option <= pos[1] <= self.view.y_bouton_option + self.view.hauteur_bouton)
+        return (
+            self.view.x_bouton_option <= pos[0] <= self.view.x_bouton_option + self.view.largeur_bouton
+            and self.view.y_bouton_option <= pos[1] <= self.view.y_bouton_option + self.view.hauteur_bouton
+        )
 
     def _is_click_quit(self, pos):
-        return (self.view.x_bouton_quit <= pos[0] <= self.view.x_bouton_quit + self.view.largeur_bouton and
-                self.view.y_bouton_quit <= pos[1] <= self.view.y_bouton_quit + self.view.hauteur_bouton)
+        return (
+            self.view.x_bouton_quit <= pos[0] <= self.view.x_bouton_quit + self.view.largeur_bouton
+            and self.view.y_bouton_quit <= pos[1] <= self.view.y_bouton_quit + self.view.hauteur_bouton
+        )
 
     def _create_entity(self):
         """Initialise le monde au lancement."""

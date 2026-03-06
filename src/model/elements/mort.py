@@ -10,4 +10,4 @@ class Mort(Animal):
     __slots__ = ()
 
     def __init__(self):
-        super().__init__("Mort", "\U0001F480", 10)
+        super().__init__("Mort", "\U0001f480", 10)

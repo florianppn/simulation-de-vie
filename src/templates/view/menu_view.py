@@ -17,13 +17,19 @@ class MenuView:
         self.hauteur_bouton = 126
         repertoire_images = "assets/menu/"
         self.image_bouton_start = pygame.image.load(os.path.join(repertoire_images, "start.png")).convert_alpha()
-        self.image_bouton_start = pygame.transform.scale(self.image_bouton_start, (self.largeur_bouton, self.hauteur_bouton))
+        self.image_bouton_start = pygame.transform.scale(
+            self.image_bouton_start, (self.largeur_bouton, self.hauteur_bouton)
+        )
 
         self.image_bouton_option = pygame.image.load(os.path.join(repertoire_images, "option.png")).convert_alpha()
-        self.image_bouton_option = pygame.transform.scale(self.image_bouton_option, (self.largeur_bouton, self.hauteur_bouton))
+        self.image_bouton_option = pygame.transform.scale(
+            self.image_bouton_option, (self.largeur_bouton, self.hauteur_bouton)
+        )
 
         self.image_bouton_quit = pygame.image.load(os.path.join(repertoire_images, "quit.png")).convert_alpha()
-        self.image_bouton_quit = pygame.transform.scale(self.image_bouton_quit, (self.largeur_bouton, self.hauteur_bouton))
+        self.image_bouton_quit = pygame.transform.scale(
+            self.image_bouton_quit, (self.largeur_bouton, self.hauteur_bouton)
+        )
 
         centre_x = screen_size[0] // 2
         centre_y = screen_size[0] // 2 + 50
