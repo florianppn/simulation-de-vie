@@ -15,6 +15,8 @@ class MainController:
 
     def __init__(self):
         pygame.init()
+        # Initialiser l'affichage pour permettre le chargement des ressources (carte TMX)
+        pygame.display.set_mode(WINDOW_SIZES["menu"])
         screen_size = WINDOW_SIZES["game"]
         self.game_model = GameModel(screen_size)
         self.menu_controller = MenuController(self.game_model)

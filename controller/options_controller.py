@@ -4,6 +4,7 @@
 import pygame
 
 import model.config as config
+from model.elements import *
 from view.options_view import OptionsView
 
 
@@ -63,7 +64,6 @@ class OptionsController:
 
     def _create_entity(self):
         """Initialise le monde au lancement du jeu."""
-        from model.elements import *
         for animal_type, count in config.animals.items():
             for _ in range(count["count"]):
                 animal = globals()[animal_type]()
