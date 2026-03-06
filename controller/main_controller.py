@@ -43,9 +43,9 @@ class MainController:
                 self.options_controller.render(screen)
                 self.current_interface = self.options_controller.handle_events()
             elif self.current_interface == "game":
-                self.game_controller.run(screen)
-                self.current_interface = self.game_controller.handle_events()
+                self.current_interface = self.game_controller.run(screen)
 
-            pygame.display.flip()
+            if self.current_interface != "quit":
+                pygame.display.flip()
 
         pygame.quit()

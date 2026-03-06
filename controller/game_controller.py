@@ -44,9 +44,15 @@ class GameController:
         self.view.render(screen, self.model)
 
     def run(self, screen):
-        """Boucle principale du jeu."""
+        """Boucle principale du jeu. Retourne la prochaine interface ("game" ou "quit")."""
+        # Traiter les événements en premier pour éviter les plantages à la fermeture
+        next_interface = self.handle_events()
+        if next_interface == "quit":
+            return "quit"
+
         self._initialize(screen)
         self.update()
         self.render(screen)
         pygame.display.flip()
         self.clock.tick(FPS)
+        return "game"
