@@ -9,7 +9,7 @@ from model.planet import PlanetAlpha
 from model.grid import Grid
 from model.config import *
 from model.elements import entity_factory
-from view.entity_sprite import EntitySprite
+from templates.view.entity_sprite import EntitySprite
 
 
 class GameModel(PlanetAlpha):
@@ -53,7 +53,8 @@ class GameModel(PlanetAlpha):
                 if self.grid[i][j].get_name() != 'Ground':
                     entity = EntitySprite(
                         self.grid[i][j], i, j,
-                        Grid.get_neighborhood(self, i, j, WIND_ROSE) if self.grid[i][j].get_name() == 'Water' else None
+                        Grid.get_neighborhood(self, i, j, WIND_ROSE) if self.grid[i][j].get_name() == 'Water' else None,
+                        True, PLANET_PYGAME_SIZE_GRID, WORLD_SIZE
                     )
                     if self.grid[i][j].get_name() == "Humain":
                         self.player = entity
@@ -105,9 +106,11 @@ class GameModel(PlanetAlpha):
 
     def kill(self, elt):
         """Supprime l'entité et la remplace par Mort si nécessaire."""
+        if elt == self.stats_entity:
+            self.stats_entity = None
         if elt.entity.get_name() not in ["Mort", "Damage"]:
             self.entity_group.remove(elt)
-            entity = EntitySprite(entity_factory.create_mort(), elt.position[0], elt.position[1], [], False)
+            entity = EntitySprite(entity_factory.create_mort(), elt.position[0], elt.position[1], [], False, PLANET_PYGAME_SIZE_GRID, WORLD_SIZE)
             self.entity_group.add(entity, layer=2)
         else:
             self.entity_group.remove(elt)
@@ -130,7 +133,7 @@ class GameModel(PlanetAlpha):
                         elt.entity.incr_food(alea.entity.get_life_max())
                         self.kill(alea)
                     else:
-                        entity = EntitySprite(entity_factory.create_damage(), elt.position[0], elt.position[1], [], False)
+                        entity = EntitySprite(entity_factory.create_damage(), elt.position[0], elt.position[1], [], False, PLANET_PYGAME_SIZE_GRID, WORLD_SIZE)
                         self.entity_group.add(entity, layer=3)
                 else:
                     alea.entity.decr_bar_value(1)
@@ -167,7 +170,7 @@ class GameModel(PlanetAlpha):
                 if entite.name == elt.name and entite.entity.get_gender() != elt.entity.get_gender():
                     newAnimal = entity_factory.create_animal(elt.name)
                     newAnimal.set_parents(entite if entite.entity.get_gender() == 0 else elt, entite if entite.entity.get_gender() == 1 else elt)
-                    entity = EntitySprite(newAnimal, elt.position[0], elt.position[1], [], False)
+                    entity = EntitySprite(newAnimal, elt.position[0], elt.position[1], [], False, PLANET_PYGAME_SIZE_GRID, WORLD_SIZE)
                     self.entity_group.add(entity, layer=3)
                     break
 
@@ -185,6 +188,49 @@ class GameModel(PlanetAlpha):
         """L'animal avec virus perd de la vie."""
         if elt.entity.get_virus() is True:
             elt.entity.losing_life(1)
+
+    def get_view_data(self):
+        """Retourne les données pour l'affichage. La vue ne reçoit que ces données."""
+        if self.stats_entity is not None and self.stats_entity not in self.entity_group:
+            self.stats_entity = None
+
+        stats = None
+        if self.stats_entity is not None and self.stats_entity.name not in ["Mort", "Damage"]:
+            elt = self.stats_entity
+            ent = elt.entity
+            if elt.name in PROPS_ELEMENT:
+                bar = ent.get_bar_value()
+                stats = {
+                    "entity_image": elt.image,
+                    "entity_name": elt.name,
+                    "is_prop": True,
+                    "bar_value": (bar[0], bar[1] or 1),
+                }
+            else:
+                stats = {
+                    "entity_image": elt.image,
+                    "entity_name": elt.name,
+                    "is_prop": False,
+                    "bar_life": (ent.get_bar_life()[0], ent.get_life_max() or 1),
+                    "bar_food": (ent.get_food()[0], ent.get_food()[1] or 1),
+                    "bar_drink": (ent.get_drink()[0], ent.get_drink()[1] or 1),
+                    "age": ent.get_time_life(),
+                    "virus": ent.get_virus(),
+                    "gender": ent.get_gender(),
+                    "damage": ent.get_damage(),
+                    "speed": animals[elt.name]["speed"],
+                    "weight": animals[elt.name]["weight"],
+                    "move_size": animals[elt.name]["move_size"],
+                    "prey": ent.get_prey(),
+                    "parents": [p.entity.get_id() if p else 0 for p in ent.get_parents()],
+                }
+
+        return {
+            "entity_group": self.entity_group,
+            "stats": stats,
+            "entities_count": self.entity_count(MOVABLE_ELEMENT),
+            "props_count": self.entity_count(PROPS_ELEMENT),
+        }
 
     def get_entity_at_click(self, pos):
         """Retourne l'entité à la position du clic."""

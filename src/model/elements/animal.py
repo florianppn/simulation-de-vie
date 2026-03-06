@@ -96,6 +96,12 @@ class Animal(Element):
     def get_damage(self) -> int:
         return self._damage
 
+    def get_speed(self) -> int:
+        return self._speed
+
+    def get_move_size(self) -> int:
+        return self._move_size
+
     def get_prey(self) -> list:
         return self._prey
 

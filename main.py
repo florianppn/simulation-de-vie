@@ -1,20 +1,10 @@
 # -*- coding: utf-8 -*-
-"""
-PlanetGame - Simulation de vie
-Architecture MVC
-"""
+"""Lanceur - Exécute l'application depuis src/."""
 
-from random import seed
+import sys
+import os
 
-from controller.main_controller import MainController
-
-
-def main():
-    """Point d'entrée de l'application PlanetGame."""
-    seed(1000)
-    controller = MainController()
-    controller.run()
-
-
-if __name__ == '__main__':
+if __name__ == "__main__":
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "src"))
+    from main import main
     main()

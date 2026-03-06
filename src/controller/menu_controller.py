@@ -5,7 +5,7 @@ import pygame
 
 from model.config import WINDOW_SIZES, animals, props
 from model.elements import entity_factory
-from view.menu_view import MenuView
+from templates.view.menu_view import MenuView
 
 
 class MenuController:
@@ -13,7 +13,8 @@ class MenuController:
 
     def __init__(self, game_model):
         self.model = game_model
-        self.view = MenuView()
+        from model.config import WINDOW_SIZES
+        self.view = MenuView(WINDOW_SIZES["menu"])
 
     def handle_events(self):
         """Gère les événements et retourne la prochaine interface."""

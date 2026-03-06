@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
-"""Vue des options/paramètres."""
+"""Vue des options/paramètres.
+
+La vue ne reçoit que des données du contrôleur (MVC).
+"""
 
 import pygame
 import os
-
-import model.config as config
 
 
 class Button:
@@ -59,36 +60,38 @@ class Button:
 class OptionsView:
     """Vue des paramètres : configuration des animaux et de l'humain."""
 
-    def __init__(self):
+    def __init__(self, movable_elements, entity_params, human_params):
+        """Reçoit les listes de layout du contrôleur (pas d'accès au modèle)."""
         self.gap = 8
         self.image_fond = pygame.image.load("assets/menu/fond_config.png").convert()
         self.sprite_size = 48
 
-        self.liste_button_animal = [Button(elt, (10, 20), (74, 22), 8, "animal_list") for elt in config.MOVABLE_ELEMENT]
-        self.liste_button_param_1 = [Button(elt, (282, 149), (32, 31), 10, "param_1") for elt in config.ENTITY_PARAM]
-        self.liste_button_param_10 = [Button(elt, (318, 149), (32, 31), 10, "param_10") for elt in config.ENTITY_PARAM]
-        self.liste_button_param_n10 = [Button(elt, (353, 149), (32, 31), 10, "param_n10") for elt in config.ENTITY_PARAM]
-        self.liste_button_param_0 = [Button(elt, (388, 149), (32, 31), 10, "param_0") for elt in config.ENTITY_PARAM]
+        self.liste_button_animal = [Button(elt, (10, 20), (74, 22), 8, "animal_list") for elt in movable_elements]
+        self.liste_button_param_1 = [Button(elt, (282, 149), (32, 31), 10, "param_1") for elt in entity_params]
+        self.liste_button_param_10 = [Button(elt, (318, 149), (32, 31), 10, "param_10") for elt in entity_params]
+        self.liste_button_param_n10 = [Button(elt, (353, 149), (32, 31), 10, "param_n10") for elt in entity_params]
+        self.liste_button_param_0 = [Button(elt, (388, 149), (32, 31), 10, "param_0") for elt in entity_params]
 
-        self.liste_button_param_humain_1 = [Button(elt, (596, 277), (32, 31), 10, "param__humain_1") for elt in config.HUMAN_PARAM]
-        self.liste_button_param_humain_10 = [Button(elt, (632, 277), (32, 31), 10, "param__humain_10") for elt in config.HUMAN_PARAM]
-        self.liste_button_param_humain_n10 = [Button(elt, (667, 277), (32, 31), 10, "param__humain_n10") for elt in config.HUMAN_PARAM]
-        self.liste_button_param_humain_0 = [Button(elt, (702, 277), (32, 31), 10, "param__humain_0") for elt in config.HUMAN_PARAM]
+        self.liste_button_param_humain_1 = [Button(elt, (596, 277), (32, 31), 10, "param__humain_1") for elt in human_params]
+        self.liste_button_param_humain_10 = [Button(elt, (632, 277), (32, 31), 10, "param__humain_10") for elt in human_params]
+        self.liste_button_param_humain_n10 = [Button(elt, (667, 277), (32, 31), 10, "param__humain_n10") for elt in human_params]
+        self.liste_button_param_humain_0 = [Button(elt, (702, 277), (32, 31), 10, "param__humain_0") for elt in human_params]
 
         self.BLANC = (255, 255, 255)
         self.GREEN = (40, 180, 99)
         self.police_name = pygame.font.Font(None, 36)
         self.police_values = pygame.font.Font(None, 25)
 
-    def render(self, screen, selected_entity):
-        """Affiche l'écran des options."""
+    def render(self, screen, view_state):
+        """Affiche l'écran des options à partir des données du contrôleur."""
         screen.blit(pygame.transform.scale(self.image_fond, (900, 900)), (0, 0))
-        self._humain_stat(screen)
-        self._entity_stat(screen, selected_entity)
+        self._humain_stat(screen, view_state)
+        self._entity_stat(screen, view_state)
 
-    def _entity_stat(self, screen, i):
+    def _entity_stat(self, screen, view_state):
         """Affiche les stats de l'entité sélectionnée."""
-        entity = config.animals[self.liste_button_animal[i].name]
+        i = view_state.selected_entity_index
+        entity = view_state.animals[self.liste_button_animal[i].name]
         entity_name = self.police_name.render(self.liste_button_animal[i].name, True, self.GREEN)
         screen.blit(entity_name, (187, 68))
 
@@ -106,19 +109,20 @@ class OptionsView:
             entity_stat = self.police_values.render(val, True, self.BLANC)
             screen.blit(entity_stat, pos)
 
-    def _humain_stat(self, screen):
+    def _humain_stat(self, screen, view_state):
         """Affiche les stats de l'humain."""
-        sprite_sheet = pygame.image.load(os.path.join(f"./assets/animaux/Humain/Humain ({config.HUMAIN_CP+1}).png")).convert_alpha()
+        sprite_sheet = pygame.image.load(os.path.join(f"./assets/animaux/Humain/Humain ({view_state.human_cp+1}).png")).convert_alpha()
         image = pygame.Surface((self.sprite_size, self.sprite_size), pygame.SRCALPHA)
         image.blit(sprite_sheet, (0, 0), (0, 0, self.sprite_size, self.sprite_size))
         image = image.subsurface(image.get_bounding_rect())
 
-        entity_name = self.police_name.render(config.HUMAIN_NAME[config.HUMAIN_CP], True, self.GREEN)
-        entity_speed = self.police_values.render(str(config.animals["Humain"]["speed"]), True, self.BLANC)
-        entity_move_size = self.police_values.render(str(config.animals["Humain"]["move_size"]), True, self.BLANC)
-        entity_damage = self.police_values.render(str(config.animals["Humain"]["damage"]), True, self.BLANC)
-        entity_food = self.police_values.render(str(config.animals["Humain"]["food"]), True, self.BLANC)
-        entity_drink = self.police_values.render(str(config.animals["Humain"]["drink"]), True, self.BLANC)
+        humain = view_state.animals["Humain"]
+        entity_name = self.police_name.render(view_state.human_name, True, self.GREEN)
+        entity_speed = self.police_values.render(str(humain["speed"]), True, self.BLANC)
+        entity_move_size = self.police_values.render(str(humain["move_size"]), True, self.BLANC)
+        entity_damage = self.police_values.render(str(humain["damage"]), True, self.BLANC)
+        entity_food = self.police_values.render(str(humain["food"]), True, self.BLANC)
+        entity_drink = self.police_values.render(str(humain["drink"]), True, self.BLANC)
 
         screen.blit(image, (565, 90))
         screen.blit(entity_name, (528, 213))

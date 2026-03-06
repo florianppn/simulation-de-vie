@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
-"""Contrôleur des options/paramètres."""
+"""Contrôleur des options/paramètres - Orchestration Model/View (MVC)."""
 
 import pygame
 
 import model.config as config
 from model.elements import entity_factory
-from view.options_view import OptionsView
+from templates.view.options_view import OptionsView
+from templates.view_state import OptionsViewState
 
 
 class OptionsController:
@@ -13,7 +14,11 @@ class OptionsController:
 
     def __init__(self, game_model):
         self.model = game_model
-        self.view = OptionsView()
+        self.view = OptionsView(
+            config.MOVABLE_ELEMENT,
+            config.ENTITY_PARAM,
+            config.HUMAN_PARAM,
+        )
         self.selected_entity = 1
 
     def handle_events(self):
@@ -75,5 +80,14 @@ class OptionsController:
                 self.model.place_resources([prop])
 
     def render(self, screen):
-        """Affiche les options."""
-        self.view.render(screen, self.selected_entity)
+        """Affiche les options. Le contrôleur récupère les données et les passe à la vue."""
+        view_state = OptionsViewState(
+            movable_elements=config.MOVABLE_ELEMENT,
+            entity_params=config.ENTITY_PARAM,
+            human_params=config.HUMAN_PARAM,
+            animals=config.animals,
+            human_cp=config.HUMAIN_CP,
+            human_name=config.HUMAIN_NAME[config.HUMAIN_CP],
+            selected_entity_index=self.selected_entity,
+        )
+        self.view.render(screen, view_state)

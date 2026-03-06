@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
-"""Sprite d'entité - Représentation visuelle des éléments du jeu."""
+"""Sprite d'entité - Représentation visuelle des éléments du jeu.
+
+Ne dépend pas du modèle : reçoit les données nécessaires en paramètres.
+"""
 
 import pygame
 from random import choice, randint
 
-from view.animation import AnimateSprite
-from model.config import *
+from templates.view.animation import AnimateSprite
 
 
 class EntitySprite(AnimateSprite):
@@ -20,14 +22,17 @@ class EntitySprite(AnimateSprite):
         position: Coordonnées [x, y] en pixels.
     """
 
-    def __init__(self, entity, x, y, grille, no_temp=True):
+    def __init__(self, entity, x, y, grille, no_temp=True, grid_size=48, world_size=None):
         super().__init__(entity, grille)
 
         self.entity = entity
         self.name = entity.get_name()
         self.no_temp = no_temp
+        self._grid_size = grid_size
+        self._world_size = world_size or (1440, 1440)
         if self.no_temp:
-            self.position = [x * PLANET_PYGAME_SIZE_GRID + 500, y * PLANET_PYGAME_SIZE_GRID + 500]
+            offset = 500
+            self.position = [x * self._grid_size + offset, y * self._grid_size + offset]
         else:
             self.position = [x, y]
 
@@ -71,20 +76,22 @@ class EntitySprite(AnimateSprite):
 
     def move(self):
         """Déplace le sprite selon la direction."""
-        for i in range(animals[self.name]["speed"]):
+        speed = getattr(self.entity, "get_speed", lambda: 1)()
+        move_size = getattr(self.entity, "get_move_size", lambda: 10)()
+        for _ in range(speed):
             if self.name == "Humain":
                 self.human_move()
-            if self.position[0] + self.pos[0] > 500 and self.position[0] + self.pos[0] < WORLD_SIZE[0] - 40 + 500:
-                if self.position[1] + self.pos[1] > 500 and self.position[1] + self.pos[1] < WORLD_SIZE[1] - 40 + 500:
-                    self.change_anim_dir()
-                    self.position[0] += self.pos[0]
-                    self.position[1] += self.pos[1]
-                else:
-                    self.pos = [self.pos[0] * -1, self.pos[1] * -1]
+            offset = 500
+            max_x = self._world_size[0] - 40 + offset
+            max_y = self._world_size[1] - 40 + offset
+            if offset < self.position[0] + self.pos[0] < max_x and offset < self.position[1] + self.pos[1] < max_y:
+                self.change_anim_dir()
+                self.position[0] += self.pos[0]
+                self.position[1] += self.pos[1]
             else:
                 self.pos = [self.pos[0] * -1, self.pos[1] * -1]
 
-        self.clock -= animals[self.name]["move_size"]
+        self.clock -= move_size
         if self.clock <= 0:
             self.clock = 500
             if self.name != "Humain":
