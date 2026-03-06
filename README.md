@@ -82,3 +82,5 @@ Le badge en haut du README indique le statut du dernier run.
 - **Jeu** : pygame, pytmx, pyscroll
 - **Tests** : pytest
 - **Lint / format** : ruff
+
+Co-authored-by: kitoutou999 <tomdavid09022003@gmail.com>
