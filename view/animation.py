@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+"""Sprites animés par sprite sheet."""
 
 import pygame
 import os
@@ -6,7 +7,11 @@ from random import choice
 
 
 class AnimateSprite(pygame.sprite.Sprite):
-    """Sprite animé avec sprite sheet."""
+    """Sprite Pygame animé à partir d'une sprite sheet.
+
+    Gère les animations par direction (haut, bas, gauche, droite).
+    Cas spécial pour Water : sprite selon la configuration des voisins.
+    """
 
     def __init__(self, entity, grille):
         super().__init__()

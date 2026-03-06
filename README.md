@@ -9,7 +9,17 @@ simulation-de-vie/
 ├── main.py              # Point d'entrée
 ├── model/               # Modèle - Données et logique métier
 │   ├── config.py        # Configuration (animaux, props, constantes)
-│   ├── elements.py      # Element, Animal, Resource (entités du jeu)
+│   ├── elements/        # Entités du jeu (une classe = un fichier)
+│   │   ├── element.py   # Classe de base Element
+│   │   ├── animal.py    # Animal
+│   │   ├── resource.py  # Resource
+│   │   ├── ground.py    # Ground
+│   │   ├── herb.py      # Herb
+│   │   ├── water.py     # Water
+│   │   ├── mort.py      # Mort
+│   │   ├── damage.py    # Damage
+│   │   ├── specs.py     # ANIMAL_SPECS (données)
+│   │   └── entity_factory.py  # Abstract Factory (création des entités)
 │   ├── grid.py          # Grille 2D
 │   ├── planet.py        # PlanetAlpha (monde)
 │   └── game_model.py    # Logique du jeu (collisions, reproduction, virus)

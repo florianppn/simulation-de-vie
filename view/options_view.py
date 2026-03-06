@@ -8,7 +8,11 @@ import model.config as config
 
 
 class Button:
-    """Bouton réutilisable pour l'interface des options."""
+    """Bouton réutilisable pour l'interface des options.
+
+    Utilisé pour la liste des animaux et les paramètres modifiables.
+    """
+
     __bt_count = -1
     __last = "animal_list"
 
@@ -53,7 +57,7 @@ class Button:
 
 
 class OptionsView:
-    """Vue des paramètres (animaux, humain)."""
+    """Vue des paramètres : configuration des animaux et de l'humain."""
 
     def __init__(self):
         self.gap = 8

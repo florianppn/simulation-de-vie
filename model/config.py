@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+"""Configuration du jeu : constantes, tailles, animaux et ressources."""
 
 NORTH, EAST, SOUTH, WEST = (-1,0), (0,1), (1,0), (0,-1)
 NORTH_EAST, SOUTH_EAST, SOUTH_WEST, NORTH_WEST = (-1,1), (1,1), (1,-1), (-1,-1)

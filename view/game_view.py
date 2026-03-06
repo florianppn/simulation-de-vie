@@ -7,7 +7,11 @@ from model.config import PROPS_ELEMENT, animals
 
 
 class GameView:
-    """Vue responsable de l'affichage du jeu."""
+    """Vue responsable de l'affichage du jeu.
+
+    Affiche la carte, les entités, les statistiques de l'entité
+    sélectionnée et les statistiques globales du monde.
+    """
 
     def __init__(self, screen_size):
         self.screen_width, self.screen_height = screen_size

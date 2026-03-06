@@ -9,7 +9,7 @@ from view.game_view import GameView
 
 
 class GameController:
-    """Contrôleur du jeu principal."""
+    """Contrôleur du jeu : événements, mise à jour et rendu."""
 
     def __init__(self):
         screen_size = WINDOW_SIZES["game"]

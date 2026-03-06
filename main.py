@@ -10,6 +10,7 @@ from controller.main_controller import MainController
 
 
 def main():
+    """Point d'entrée de l'application PlanetGame."""
     seed(1000)
     controller = MainController()
     controller.run()

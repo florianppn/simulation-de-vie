@@ -11,7 +11,10 @@ from controller.game_controller import GameController
 
 
 class MainController:
-    """Contrôleur principal gérant les transitions entre les écrans."""
+    """Contrôleur principal orchestrant les écrans (menu, options, jeu).
+
+    Gère les transitions entre les interfaces et la boucle principale.
+    """
 
     def __init__(self):
         pygame.init()

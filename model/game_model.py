@@ -8,12 +8,21 @@ from random import choice
 from model.planet import PlanetAlpha
 from model.grid import Grid
 from model.config import *
-from model.elements import Animal, Mort, Damage
+from model.elements import Animal, entity_factory
 from view.entity_sprite import EntitySprite
 
 
 class GameModel(PlanetAlpha):
-    """Modèle du jeu contenant la logique métier."""
+    """Modèle du jeu contenant la logique métier.
+
+    Gère les collisions, la reproduction, les virus, la prédation,
+    la faim et la soif. Utilise la carte Tiled et pyscroll pour le rendu.
+
+    Attributes:
+        entity_group: Groupe pyscroll des sprites affichés.
+        player: Référence au sprite du joueur (Humain).
+        stats_entity: Entité sélectionnée pour afficher ses stats.
+    """
 
     def __init__(self, screen_size):
         PlanetAlpha.__init__(self)
@@ -121,7 +130,7 @@ class GameModel(PlanetAlpha):
                         elt.entity.incr_food(alea.entity.get_life_max())
                         self.kill(alea)
                     else:
-                        entity = EntitySprite(Damage(), elt.position[0], elt.position[1], [], False)
+                        entity = EntitySprite(entity_factory.create_damage(), elt.position[0], elt.position[1], [], False)
                         self.entity_group.add(entity, layer=3)
                 else:
                     alea.entity.decr_bar_value(1)

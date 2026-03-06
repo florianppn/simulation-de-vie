@@ -4,12 +4,12 @@
 import pygame
 
 import model.config as config
-from model.elements import *
+from model.elements import entity_factory
 from view.options_view import OptionsView
 
 
 class OptionsController:
-    """Contrôleur des paramètres (animaux, humain)."""
+    """Contrôleur des paramètres : modification des stats et lancement du jeu."""
 
     def __init__(self, game_model):
         self.model = game_model
@@ -66,12 +66,12 @@ class OptionsController:
         """Initialise le monde au lancement du jeu."""
         for animal_type, count in config.animals.items():
             for _ in range(count["count"]):
-                animal = globals()[animal_type]()
+                animal = entity_factory.create_animal(animal_type)
                 self.model.place_animals([animal])
 
         for props_type, count in config.props.items():
             for _ in range(count["count"]):
-                prop = globals()[props_type]()
+                prop = entity_factory.create_resource(props_type)
                 self.model.place_resources([prop])
 
     def render(self, screen):

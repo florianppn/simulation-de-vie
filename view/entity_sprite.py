@@ -9,7 +9,16 @@ from model.config import *
 
 
 class EntitySprite(AnimateSprite):
-    """Sprite Pygame représentant une entité (animal, ressource, etc.)."""
+    """Sprite Pygame représentant une entité (animal, ressource, etc.).
+
+    Lie le modèle (Element) à sa représentation visuelle.
+    Gère le déplacement (Humain au clavier, autres animaux aléatoires).
+
+    Attributes:
+        entity: Instance de Element (Animal, Resource, etc.).
+        name: Nom de l'entité.
+        position: Coordonnées [x, y] en pixels.
+    """
 
     def __init__(self, entity, x, y, grille, no_temp=True):
         super().__init__(entity, grille)

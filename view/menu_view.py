@@ -8,7 +8,7 @@ from model.config import WINDOW_SIZES
 
 
 class MenuView:
-    """Vue du menu principal (Start, Option, Quit)."""
+    """Vue du menu principal avec boutons Start, Option et Quit."""
 
     def __init__(self):
         self.gap = 30

@@ -4,12 +4,12 @@
 import pygame
 
 from model.config import WINDOW_SIZES, animals, props
-from model.elements import *
+from model.elements import entity_factory
 from view.menu_view import MenuView
 
 
 class MenuController:
-    """Contrôleur du menu (Start, Option, Quit)."""
+    """Contrôleur du menu principal : gestion des clics et création des entités."""
 
     def __init__(self, game_model):
         self.model = game_model
@@ -46,12 +46,12 @@ class MenuController:
         """Initialise le monde au lancement."""
         for animal_type, count in animals.items():
             for _ in range(count["count"]):
-                animal = globals()[animal_type]()
+                animal = entity_factory.create_animal(animal_type)
                 self.model.place_animals([animal])
 
         for props_type, count in props.items():
             for _ in range(count["count"]):
-                prop = globals()[props_type]()
+                prop = entity_factory.create_resource(props_type)
                 self.model.place_resources([prop])
 
     def render(self, screen):

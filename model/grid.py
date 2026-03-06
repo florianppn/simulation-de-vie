@@ -1,9 +1,18 @@
 # -*- coding: utf-8 -*-
+"""Grille 2D pour la représentation du monde."""
 
 import random
 
 
 class Grid:
+    """Grille bidimensionnelle permettant la manipulation des cellules.
+
+    Attributes:
+        grid: Matrice 2D des valeurs de la grille.
+        lines_count: Nombre de lignes.
+        columns_count: Nombre de colonnes.
+    """
+
     def __init__(self, grid_init):
         self.grid = grid_init
         self.lines_count = len(grid_init)

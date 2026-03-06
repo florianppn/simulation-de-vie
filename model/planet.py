@@ -1,20 +1,27 @@
 # -*- coding: utf-8 -*-
+"""Représentation du monde (planète) de la simulation."""
 
 from random import choice
 
-from model.elements import Ground
+from model.elements import entity_factory
 from model.grid import Grid
 from model.config import *
 
 
 class PlanetAlpha(Grid):
+    """Monde de la simulation : grille avec placement d'animaux et ressources.
+
+    Hérite de Grid et ajoute la gestion des entités (animaux, herbe, eau)
+    sur les cellules libres.
+    """
+
     def __init__(self) -> None:
         self.NORTH, self.EAST, self.SOUTH, self.WEST = (-1,0), (0,1), (1,0), (0,-1)
         self.NORTH_EAST, self.SOUTH_EAST, self.SOUTH_WEST, self.NORTH_WEST = (-1,1), (1,1), (1,-1), (-1,-1)
         self.CARDINAL_POINT = (self.NORTH, self.EAST, self.SOUTH, self.WEST)
         self.WIND_ROSE = (self.NORTH, self.NORTH_EAST, self.EAST, self.SOUTH_EAST, self.SOUTH, self.SOUTH_WEST, self.WEST, self.NORTH_WEST)
         self.__current_animals_count = 0
-        self.__ground = Ground()
+        self.__ground = entity_factory.create_ground()
         self.longitude_cells_count = PLANET_LONGITUDE_CELLS_COUNT
         self.latitude_cells_count = PLANET_LATITUDE_CELLS_COUNT
         Grid.__init__(self, [[self.__ground for _ in range(PLANET_LONGITUDE_CELLS_COUNT)] for _ in range(PLANET_LATITUDE_CELLS_COUNT)])
