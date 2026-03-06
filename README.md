@@ -25,8 +25,9 @@ simulation-de-vie/
 │   ├── menu_controller.py   # Contrôle du menu
 │   └── options_controller.py # Contrôle des options
 ├── map/                 # Carte Tiled
-├── images/              # Sprites des entités
-└── Menu/images/         # Images du menu
+└── assets/              # Ressources graphiques
+    ├── animaux/         # Sprites des entités (animaux, ressources, stats)
+    └── menu/            # Images du menu (fond, boutons)
 ```
 
 ## Lancer le jeu

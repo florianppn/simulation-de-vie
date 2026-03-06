@@ -12,11 +12,11 @@ class MenuView:
 
     def __init__(self):
         self.gap = 30
-        self.image_fond = pygame.image.load("Menu/images/fond.png").convert()
+        self.image_fond = pygame.image.load("assets/menu/fond.png").convert()
 
         self.largeur_bouton = 240
         self.hauteur_bouton = 126
-        repertoire_images = "Menu/images/"
+        repertoire_images = "assets/menu/"
         self.image_bouton_start = pygame.image.load(os.path.join(repertoire_images, "start.png")).convert_alpha()
         self.image_bouton_start = pygame.transform.scale(self.image_bouton_start, (self.largeur_bouton, self.hauteur_bouton))
 

@@ -38,13 +38,13 @@ class AnimateSprite(pygame.sprite.Sprite):
                 text += str(elt)
             try:
                 sprite_name = f"{text}.png"
-                self.sprite_sheet = pygame.image.load(f"./images/{name.get_name()}/{sprite_name}").convert_alpha()
+                self.sprite_sheet = pygame.image.load(f"./assets/animaux/{name.get_name()}/{sprite_name}").convert_alpha()
             except FileNotFoundError:
                 sprite_name = "11111111.png"
-                self.sprite_sheet = pygame.image.load(f"./images/{name.get_name()}/{sprite_name}").convert_alpha()
+                self.sprite_sheet = pygame.image.load(f"./assets/animaux/{name.get_name()}/{sprite_name}").convert_alpha()
         else:
-            sprite_name = choice(os.listdir(f"./images/{name.get_name()}"))
-            self.sprite_sheet = pygame.image.load(f"./images/{name.get_name()}/{sprite_name}").convert_alpha()
+            sprite_name = choice(os.listdir(f"./assets/animaux/{name.get_name()}"))
+            self.sprite_sheet = pygame.image.load(f"./assets/animaux/{name.get_name()}/{sprite_name}").convert_alpha()
 
     def change_animation(self, name):
         """Change l'animation courante."""

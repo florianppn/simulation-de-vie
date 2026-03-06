@@ -57,7 +57,7 @@ class OptionsView:
 
     def __init__(self):
         self.gap = 8
-        self.image_fond = pygame.image.load("Menu/images/fond_config.png").convert()
+        self.image_fond = pygame.image.load("assets/menu/fond_config.png").convert()
         self.sprite_size = 48
 
         self.liste_button_animal = [Button(elt, (10, 20), (74, 22), 8, "animal_list") for elt in config.MOVABLE_ELEMENT]
@@ -104,7 +104,7 @@ class OptionsView:
 
     def _humain_stat(self, screen):
         """Affiche les stats de l'humain."""
-        sprite_sheet = pygame.image.load(os.path.join(f"./images/Humain/Humain ({config.HUMAIN_CP+1}).png")).convert_alpha()
+        sprite_sheet = pygame.image.load(os.path.join(f"./assets/animaux/Humain/Humain ({config.HUMAIN_CP+1}).png")).convert_alpha()
         image = pygame.Surface((self.sprite_size, self.sprite_size), pygame.SRCALPHA)
         image.blit(sprite_sheet, (0, 0), (0, 0, self.sprite_size, self.sprite_size))
         image = image.subsurface(image.get_bounding_rect())

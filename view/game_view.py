@@ -16,10 +16,10 @@ class GameView:
         self.rect_y = 0
         self.rect_width_G, self.rect_height_G = 175, 216
 
-        self.sprite_sheet_stats = pygame.image.load("images/stats_icons/Stats.png").convert_alpha()
+        self.sprite_sheet_stats = pygame.image.load("assets/animaux/stats_icons/Stats.png").convert_alpha()
         self.sprite_sheet_stats = pygame.transform.scale(self.sprite_sheet_stats, (self.rect_width, self.rect_height))
 
-        self.sprite_sheet_stats_G = pygame.image.load("images/stats_icons/global.png").convert_alpha()
+        self.sprite_sheet_stats_G = pygame.image.load("assets/animaux/stats_icons/global.png").convert_alpha()
         self.sprite_sheet_stats_G = pygame.transform.scale(self.sprite_sheet_stats_G, (self.rect_width_G, self.rect_height_G))
 
     def render(self, screen, model):
