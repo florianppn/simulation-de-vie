@@ -31,6 +31,18 @@ simulation-de-vie/
 
 ## Lancer le jeu
 
+### Créer l'environnement virtuel
+
+```bash
+python3 -m venv env-py
+source env-py/bin/activate  # Linux/macOS
+# ou : env-py\Scripts\activate  # Windows
+
+pip install pygame pytmx pyscroll
+```
+
+### Lancer le jeu
+
 ```bash
 source env-py/bin/activate
 python main.py
