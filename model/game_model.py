@@ -8,7 +8,7 @@ from random import choice
 from model.planet import PlanetAlpha
 from model.grid import Grid
 from model.config import *
-from model.elements import Animal, entity_factory
+from model.elements import entity_factory
 from view.entity_sprite import EntitySprite
 
 
@@ -107,7 +107,7 @@ class GameModel(PlanetAlpha):
         """Supprime l'entité et la remplace par Mort si nécessaire."""
         if elt.entity.get_name() not in ["Mort", "Damage"]:
             self.entity_group.remove(elt)
-            entity = EntitySprite(Mort(), elt.position[0], elt.position[1], [], False)
+            entity = EntitySprite(entity_factory.create_mort(), elt.position[0], elt.position[1], [], False)
             self.entity_group.add(entity, layer=2)
         else:
             self.entity_group.remove(elt)
@@ -165,7 +165,7 @@ class GameModel(PlanetAlpha):
         if self.percentage_chance(25):
             for entite in collision_list:
                 if entite.name == elt.name and entite.entity.get_gender() != elt.entity.get_gender():
-                    newAnimal = Animal(elt.name, elt.entity.get_char_repr(), elt.entity.get_life_max())
+                    newAnimal = entity_factory.create_animal(elt.name)
                     newAnimal.set_parents(entite if entite.entity.get_gender() == 0 else elt, entite if entite.entity.get_gender() == 1 else elt)
                     entity = EntitySprite(newAnimal, elt.position[0], elt.position[1], [], False)
                     self.entity_group.add(entity, layer=3)
