@@ -44,6 +44,8 @@ simulation-de-vie/
 │   ├── conftest.py      # Config pytest (path src/)
 │   ├── unit/            # Tests unitaires (Element, Grid, factory, Animal)
 │   └── integration/     # Tests d'intégration (Planet + factory)
+├── pyproject.toml       # Config Ruff (lint)
+├── .github/workflows/   # CI/CD (tests, Ruff, pip-audit sur push/PR)
 └── assets/              # Ressources graphiques
     ├── animaux/         # Sprites des entités
     ├── Animaux/         # Sprites additionnels
@@ -92,8 +94,17 @@ pytest test/unit/ -v
 pytest test/integration/ -v
 ```
 
+## CI/CD
+
+À chaque push ou pull request sur `main`/`master`, GitHub Actions exécute :
+
+- **Lint** : Ruff (vérification du code + formatage) et pip-audit (sécurité des dépendances)
+- **Tests** : pytest sur Ubuntu, Windows et macOS
+
+Le badge en haut du README indique le statut du dernier run.
+
 ## Dépendances
 
 - **Jeu** : pygame, pytmx, pyscroll
 - **Tests** : pytest
-- **Lint** : ruff
+- **Lint / format** : ruff
