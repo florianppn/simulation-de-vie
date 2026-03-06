@@ -18,7 +18,7 @@ class GameModel(PlanetAlpha):
     def __init__(self, screen_size):
         PlanetAlpha.__init__(self)
 
-        tmx_data = pytmx.util_pygame.load_pygame('./map/carte.tmx')
+        tmx_data = pytmx.util_pygame.load_pygame('./assets/map/carte.tmx')
         map_data = pyscroll.data.TiledMapData(tmx_data)
         map_layer = pyscroll.orthographic.BufferedRenderer(map_data, screen_size)
         map_layer.zoom = ZOOM

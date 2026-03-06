@@ -24,10 +24,11 @@ simulation-de-vie/
 │   ├── game_controller.py   # Contrôle du jeu
 │   ├── menu_controller.py   # Contrôle du menu
 │   └── options_controller.py # Contrôle des options
-├── map/                 # Carte Tiled
 └── assets/              # Ressources graphiques
     ├── animaux/         # Sprites des entités (animaux, ressources, stats)
-    └── menu/            # Images du menu (fond, boutons)
+    ├── menu/            # Images du menu (fond, boutons)
+    ├── font/            # Polices de caractères
+    └── map/             # Carte Tiled (.tmx, .tsx)
 ```
 
 ## Lancer le jeu
